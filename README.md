@@ -2,11 +2,13 @@
 
 [Indego](https://www.rideindego.com) is Philadelphia's bike-sharing program, with many bike stations in the city.
 
-The [Indego API](https://www.rideindego.com/stations/json/) provides a realtime snapshot of the number of bikes available, number of open docks available (not currently containing a bike), and total number of docks at every station. This API is free and requires no API key.
+The [Indego GeoJSON station status API](https://www.rideindego.com/stations/json/) provides a realtime snapshot of the number of bikes available, number of open docks available (not currently containing a bike), and total number of docks at every station. This API is free and requires no API key.
 
 The [Open Weather Map API](https://openweathermap.org/current#name) provides a realtime snapshot of the current weather in a given city. Since Philadelphia is a small geographical area it is sufficient to obtain the weather for a geographical location central to Philadelphia. This API has a free plan, you will need to sign up for an API key.
 
-Using MongoDB, Node.js, Express, the [async module](https://npmjs.org/package/async), Lodash and the Linux, Node.js and MongoDB hosting of your choice (see below for hosting details), create a new API which provides access to historical data for both weather and Indego bike availability, supporting the following queries at minimum. Note that it is sufficient to store data at hourly intervals.
+Using MongoDB, Node.js, Express, the [async module](https://npmjs.org/package/async), Lodash and the Linux, Node.js and MongoDB hosting of your choice (see below for hosting details), create a new API server which accumulates data over time and provides access to historical data for both weather and Indego bike availability, supporting the following queries at minimum. Note that it is sufficient to store data at hourly intervals.
+
+*Please note: historical CSV data downloads are available from Indego, however you should not rely on them.* Instead you should build your own node application that downloads fresh data at least once per hour, stores it and implements the API described below.
 
 ## Snapshot of all stations at a specified time
 
@@ -52,7 +54,7 @@ All historical data for a specific station between two timestamps:
 
 `/api/v1/stations/KIOSKIDGOESHERE?from=2017-11-01T11:00:00,to=2017-12-01T11:00:00,frequency=daily`
 
-For this last response, the returned JSON value should be an array. **Each element in the array** should look like:
+For this last response, the returned JSON value should be an array of values in ascending chronological order. **Each element in the array** should look like:
 
 ```javascript
 {
@@ -76,7 +78,7 @@ You might wish to use Linode or Digital Ocean and install both Node and MongoDB 
  
 ## Criteria
 
-Your work will be evaluated on:
+Your work will be evaluated primarily on:
 
 * Consistency of coding style (ideally in harmony with our [JavaScript style guide](https://github.com/punkave/best-practices/blob/master/javascript.md))
 * Idiomatic use of `express`, `mongodb`, `async` and `lodash`
@@ -84,10 +86,15 @@ Your work will be evaluated on:
 * Absence of "callback hell"
 * Efficient MongoDB queries
 * Correct and complete unit test coverage
+* General quality of code and technical communication.
+
+## How to submit your work
+
+Fork this project on github. When you're finished, send us the URL of your public repository and the URL of your running instance of the API. *Consider using `.gitignore` to avoid putting any deployment credentials or API key in your public repository.*
 
 ## Extra credit
 
-* A second implementation using promises, either explicitly or via the async/await keywords. Note that we still want to see your chops with "Plain old callbacks."
+* A second implementation using promises, either explicitly or via the async/await keywords. Note that we still want to see your chops with "Plain old callbacks" first.
 * A simple front end React application and/or Express-powered webpage offering a visualization of all or part of the data.
+* Import the [historical data available from Indego](https://www.rideindego.com/about/data/) so that it is available via the queries above. Note that this is in addition to, not an alternative to, downloading live data periodically and adding it to your own historical database.
 * Anything else you think is cool, relevant, and consistent with the other requirements.
-
