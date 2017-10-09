@@ -62,7 +62,7 @@ For this last response, the returned JSON value should be an array. **Each eleme
 }
 ```
 
-The `frequency` query parameter, if present, may be `hourly` or `daily`. The API should respond with only one entry from each hour or day. For `hourly` this should be the first entry on or after the top of the hour. For `daily` it should be the first entry on or after noon. If `frequency` is absent, `hourly` is the default.
+The `frequency` query parameter, if present, may be `hourly` or `daily`. The API should respond with only one entry from each hour or day. For `hourly` this should be the first entry on or after the top of the hour. For `daily` it should be the first entry on or after noon, Philadelphia time. If `frequency` is absent, `hourly` is the default.
 
 ## Unit tests
 
