@@ -2,9 +2,11 @@
 
 [Indego](https://www.rideindego.com) is Philadelphia's bike-sharing program, with many bike stations in the city.
 
-The [Indego API](https://www.rideindego.com/stations/json/) provides a realtime snapshot of the number of bikes available, number of open docks available (not currently containing a bike), and total number of docks at every station.
+The [Indego API](https://www.rideindego.com/stations/json/) provides a realtime snapshot of the number of bikes available, number of open docks available (not currently containing a bike), and total number of docks at every station. This API is free and requires no API key.
 
-Using MongoDB, Node.js, Express, the [async module](https://npmjs.org/package/async), Lodash and the Linux, Node.js and MongoDB hosting of your choice (see below for hosting details), create a new API which provides access to historical data, supporting the following queries at minimum. Note that it is sufficient to store data at hourly intervals.
+The [Open Weather Map API](https://openweathermap.org/current#name) provides a realtime snapshot of the current weather in a given city. Since Philadelphia is a small geographical area it is sufficient to obtain the weather for a geographical location central to Philadelphia. This API has a free plan, you will need to sign up for an API key.
+
+Using MongoDB, Node.js, Express, the [async module](https://npmjs.org/package/async), Lodash and the Linux, Node.js and MongoDB hosting of your choice (see below for hosting details), create a new API which provides access to historical data for both weather and Indego bike availability, supporting the following queries at minimum. Note that it is sufficient to store data at hourly intervals.
 
 ## Snapshot of all stations at a specified time
 
@@ -17,7 +19,8 @@ This API should respond as follows, with the actual time of the first snapshot o
 ```javascript
 {
   at: '2017-11-01:T11:00:01',
-  data: { /* As per the Indego API */ }
+  stations: { /* As per the Indego API */ },
+  weather: { /* as per the Open Weather Map API response for Philadelphia */ }
 }
 ```
 
@@ -27,14 +30,15 @@ If no suitable data is available a 404 status code should be given.
 
 Data for a specific station (by its `kioskId`) at a specific time:
 
-`/api/v1/station/KIOSKIDGOESHERE?at=2017-11-01T11:00:00`
+`/api/v1/stations/KIOSKIDGOESHERE?at=2017-11-01T11:00:00`
 
 The response should be the first available on or after the given time, and should look like:
 
 ```javascript
 {
   at: '2017-11-01:T11:00:01',
-  data: { /* Data just for this one station as per the Indego API */ }
+  station: { /* Data just for this one station as per the Indego API */ },
+  weather: { /* as per the Open Weather Map API response for Philadelphia */ }
 }
 ```
 
@@ -46,14 +50,15 @@ If no suitable data is available a 404 status code should be given.
 
 All historical data for a specific station between two timestamps:
 
-`/api/v1/station/KIOSKIDGOESHERE?from=2017-11-01T11:00:00,to=2017-12-01T11:00:00,frequency=daily`
+`/api/v1/stations/KIOSKIDGOESHERE?from=2017-11-01T11:00:00,to=2017-12-01T11:00:00,frequency=daily`
 
 For this last response, the returned JSON value should be an array. **Each element in the array** should look like:
 
 ```javascript
 {
   at: '2017-11-02T10:00:00',
-  data: { /* snapshot in the same format as the other APIs */ }
+  station: { /* snapshot in the same format as the other APIs */ },
+  weather: { /* as per the Open Weather Map API response for Philadelphia */ }
 }
 ```
 
@@ -76,12 +81,13 @@ Your work will be evaluated on:
 * Consistency of coding style (ideally in harmony with our [JavaScript style guide](https://github.com/punkave/best-practices/blob/master/javascript.md))
 * Idiomatic use of `express`, `mongodb`, `async` and `lodash`
 * Correct use of async functions, including proper error handling
+* Absence of "callback hell"
 * Efficient MongoDB queries
 * Correct and complete unit test coverage
 
 ## Extra credit
 
 * A second implementation using promises, either explicitly or via the async/await keywords. Note that we still want to see your chops with "Plain old callbacks."
-* A simple front end React application and/or Express-powered webpage offering a visualization of the data.
+* A simple front end React application and/or Express-powered webpage offering a visualization of all or part of the data.
 * Anything else you think is cool, relevant, and consistent with the other requirements.
 
