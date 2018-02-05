@@ -1,4 +1,4 @@
-## P'unk Avenue Node.js challenge
+## P'unk Avenue Node.js Backend Challenge
 
 [Indego](https://www.rideindego.com) is Philadelphia's bike-sharing program, with many bike stations in the city.
 
@@ -6,7 +6,7 @@ The [Indego GeoJSON station status API](https://www.rideindego.com/stations/json
 
 The [Open Weather Map API](https://openweathermap.org/current#name) provides a realtime snapshot of the current weather in a given city. Since Philadelphia is a small geographical area it is sufficient to obtain the weather for a geographical location central to Philadelphia. This API has a free plan, you will need to sign up for an API key.
 
-Using MongoDB, Node.js, Express, the [async module](https://npmjs.org/package/async), Lodash and the Linux, Node.js and MongoDB hosting of your choice (see below for hosting details), create a new API server which accumulates data over time and provides access to historical data for both weather and Indego bike availability, supporting the following queries at minimum. Note that it is sufficient to store data at hourly intervals.
+Using MongoDB, Node.js, Express, [Bluebird](https://npmjs.org/package/bluebird), Lodash and the Linux, Node.js and MongoDB hosting of your choice (see below for hosting details including free options), create a new API server which accumulates data over time and provides access to historical data for both weather and Indego bike availability, supporting the following queries at minimum. Note that it is sufficient to store data at hourly intervals.
 
 *Please note: historical CSV data downloads are available from Indego, however you should not rely on them.* Instead you should build your own node application that downloads fresh data at least once per hour, stores it and implements the API described below.
 
@@ -81,8 +81,8 @@ You might wish to use Linode or Digital Ocean and install both Node and MongoDB 
 Your work will be evaluated primarily on:
 
 * Consistency of coding style (ideally in harmony with our [JavaScript style guide](https://github.com/punkave/best-practices/blob/master/javascript.md))
-* Idiomatic use of `express`, `mongodb`, `async` and `lodash`
-* Correct use of async functions, including proper error handling
+* Idiomatic use of `express`, `mongodb`, `bluebird` and `lodash`
+* Correct use of promises, including proper error handling. async/await may be used
 * Absence of "callback hell"
 * Efficient MongoDB queries
 * Correct and complete unit test coverage
