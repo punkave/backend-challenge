@@ -94,7 +94,6 @@ Fork this project on github. When you're finished, send us the URL of your publi
 
 ## Extra credit
 
-* A second implementation using promises, either explicitly or via the async/await keywords. Note that we still want to see your chops with the async module first.
-* A simple front end React application and/or Express-powered webpage offering a visualization of all or part of the data, utilizing the API you have built as a back end.
+* A simple front end React or Vue application, and/or Express-powered webpage, offering a visualization of all or part of the data utilizing the API you have built as a back end.
 * Import the [historical data available from Indego](https://www.rideindego.com/about/data/) so that it is available via the queries above. Note that this is in addition to, not an alternative to, downloading live data periodically and adding it to your own historical database.
 * Anything else you think is cool, relevant, and consistent with the other requirements.
