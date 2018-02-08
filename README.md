@@ -52,7 +52,7 @@ If no suitable data is available a 404 status code should be given.
 
 All historical data for a specific station between two timestamps:
 
-`/api/v1/stations/KIOSKIDGOESHERE?from=2017-11-01T11:00:00,to=2017-12-01T11:00:00,frequency=daily`
+`/api/v1/stations/KIOSKIDGOESHERE?from=2017-11-01T11:00:00&to=2017-12-01T11:00:00&frequency=daily`
 
 For this last response, the returned JSON value should be an array of values in ascending chronological order. **Each element in the array** should look like:
 
